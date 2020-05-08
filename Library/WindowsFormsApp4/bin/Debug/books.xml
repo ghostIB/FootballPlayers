@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<books>
+  <book name="Евгений Онегин">
+    <Title>Евгений Онегин</Title>
+    <Author>Александр Пушкин</Author>
+    <Straight>Реалізм</Straight>
+    <Genre>Роман</Genre>
+    <Quantity>30</Quantity>
+  </book>
+</books>
