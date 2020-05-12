@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp4
 {
-    partial class Form3
+    partial class StudentsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -139,7 +139,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(93, 38);
             this.button2.TabIndex = 14;
-            this.button2.Text = "Видати книгу";
+            this.button2.Text = "Взяти книгу";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.Give_Book);
@@ -160,11 +160,11 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(177, 356);
+            this.button4.Location = new System.Drawing.Point(163, 356);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(93, 38);
+            this.button4.Size = new System.Drawing.Size(121, 38);
             this.button4.TabIndex = 16;
-            this.button4.Text = "Забрати книгу";
+            this.button4.Text = "Поверннути книгу";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.Return_Book);
@@ -180,7 +180,7 @@
             this.button5.Visible = false;
             this.button5.Click += new System.EventHandler(this.Book_List);
             // 
-            // Form3
+            // StudentsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -199,7 +199,7 @@
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Form3";
+            this.Name = "StudentsForm";
             this.Text = "Form3";
             this.Load += new System.EventHandler(this.Form3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

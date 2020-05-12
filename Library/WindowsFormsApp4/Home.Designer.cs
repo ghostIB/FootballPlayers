@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp4
 {
-    partial class Form1
+    partial class Home
     {
         /// <summary>
         /// Обязательная переменная конструктора.

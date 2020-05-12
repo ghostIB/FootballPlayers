@@ -5,6 +5,11 @@
     <Author>Александр Пушкин</Author>
     <Straight>Реалізм</Straight>
     <Genre>Роман</Genre>
-    <Quantity>30</Quantity>
+  </book>
+  <book name="Преступление и наказание">
+    <Title>Преступление и наказание</Title>
+    <Author>Достоевский</Author>
+    <Genre>Драма</Genre>
+    <Straight>Реалізм</Straight>
   </book>
 </books>

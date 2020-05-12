@@ -13,7 +13,7 @@ using System.Drawing.Imaging;
 
 namespace WindowsFormsApp4
 {
-    public partial class Form3 : Form
+    public partial class StudentsForm : Form
     {
         private Stream selectedFile;
         private string filePathStudents = "students.xml";
@@ -21,10 +21,10 @@ namespace WindowsFormsApp4
         private XmlDocument xDoc;
         private XmlElement xRoot;
         private XmlElement xStudent;
-        private Dictionary<string, string> Params;
+        private Student newStudent;
         private List<Book> StudentsBooks;
         private string selectedBook;
-        public Form3()
+        public StudentsForm()
         {
             InitializeComponent();
         }
@@ -58,7 +58,7 @@ namespace WindowsFormsApp4
             xRoot = xDoc.DocumentElement;
             foreach (XmlNode Node in xRoot)
             {
-                if (Node.Attributes.GetNamedItem("Surname").Value == textBox2.Text)
+                if (Node.Attributes["Surname"].Value == textBox2.Text)
                 {
                     MessageBox.Show("Такий учень вже існує");
                     Close();
@@ -71,11 +71,10 @@ namespace WindowsFormsApp4
         }
         private void SaveToDict()
         {
-            Params = new Dictionary<string, string>();
-            Params.Add("Name", textBox1.Text);
-            Params.Add("Surname", textBox2.Text);
-            Params.Add("Class", textBox3.Text);
-            Params.Add("Image", ImageToString(pictureBox1.Image));
+            newStudent = new Student(textBox2.Text);
+            newStudent.Set_Name(textBox1.Text);
+            newStudent.Set_Class(textBox3.Text);
+            newStudent.Set_Image(ImageToString(pictureBox1.Image));
         }
         private void CheckFile()
         {
@@ -102,7 +101,7 @@ namespace WindowsFormsApp4
         }
         private void AddNode()
         {
-            foreach (KeyValuePair<string, string> keyValue in Params)
+            foreach (KeyValuePair<string, string> keyValue in newStudent)
             {
                 xStudent.SetAttribute(keyValue.Key, keyValue.Value);
             }
@@ -127,7 +126,32 @@ namespace WindowsFormsApp4
             xDoc = new XmlDocument();
             xDoc.Load(filePathBooks);
             xRoot = xDoc.DocumentElement;
-            XmlNodeList xBooks = xRoot.ChildNodes;
+            if (!File.Exists(filePathStudents))
+            {
+                MessageBox.Show("В базі данних немає учня");
+                return;
+            }
+            XmlDocument xDocStudent = new XmlDocument();
+            xDocStudent.Load(filePathStudents);
+            XmlElement xRootStudent = xDocStudent.DocumentElement;
+            foreach (XmlNode Node in xRoot)
+            {
+                if (Node.Attributes["name"].Value==selectedBook)
+                {
+                    XmlElement tmpNode = xDocStudent.CreateElement(Node.Name);
+                    tmpNode.InnerText = Node.Attributes["name"].Value;
+                    foreach (XmlNode StudentNode in xRootStudent)
+                    {
+                        if (StudentNode.Attributes["Surname"].Value==textBox2.Text)
+                        {
+                            StudentNode.AppendChild(tmpNode);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            xDocStudent.Save(filePathStudents);
         }
         private void PasteTo_PictureBox()
         {
@@ -149,13 +173,60 @@ namespace WindowsFormsApp4
 
         private void Return_Book(object sender, EventArgs e)
         {
-
+            if (!File.Exists(filePathStudents))
+            {
+                MessageBox.Show("В базі данних немає учня");
+                return;
+            }
+            XmlDocument xDocStudent = new XmlDocument();
+            xDocStudent.Load(filePathStudents);
+            XmlElement xRootStudent = xDocStudent.DocumentElement;
+            foreach (XmlNode Node in xRootStudent)
+            {
+                if (Node.Attributes["Surname"].Value==textBox2.Text)
+                {
+                    foreach (XmlNode Book in Node)
+                    {
+                        if (Book.InnerText == textBox6.Text)
+                        {
+                            Node.RemoveChild(Book);
+                        }
+                        break;
+                    }
+                    break;
+                }
+            }
+            xDocStudent.Save(filePathStudents);
         }
 
         private void Book_List(object sender, EventArgs e)
         {
-
+            string text="";
+            StudentsBooks = new List<Book>();
+            if (!File.Exists(filePathStudents))
+            {
+                MessageBox.Show("В базі данних немає учня");
+                return;
+            }
+            XmlDocument xDocStudent = new XmlDocument();
+            xDocStudent.Load(filePathStudents);
+            XmlElement xRootStudent = xDocStudent.DocumentElement;
+            foreach (XmlNode Node in xRootStudent)
+            {
+                if (Node.Attributes["Surname"].Value==textBox2.Text)
+                {
+                    foreach (XmlNode Book in Node)
+                    {
+                        StudentsBooks.Add(new Book(Book.InnerText));
+                    }
+                    break;
+                }
+            }
+            foreach (Book book in StudentsBooks)
+            {
+                text += book.Params["Title"] + "\n";
+            }
+            MessageBox.Show(text);
         }
     }
-    class Book { }
 }

@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp4
 {
-    partial class Form4
+    partial class Sort_Books
     {
         /// <summary>
         /// Required designer variable.

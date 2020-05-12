@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp4
 {
-    public partial class Form4 : Form
+    public partial class Sort_Books : Form
     {
-        public Form4()
+        public Sort_Books()
         {
             InitializeComponent();
         }

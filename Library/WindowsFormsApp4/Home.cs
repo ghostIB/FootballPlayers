@@ -12,13 +12,13 @@ using System.Xml;
 
 namespace WindowsFormsApp4
 {
-    public partial class Form1 : Form
+    public partial class Home : Form
     {
-        Form3 Student;
+        StudentsForm createdStudent;
         string filePath = "students.xml";
         XmlDocument xDoc;
         XmlElement xRoot;
-        public Form1()
+        public Home()
         {
             InitializeComponent();
         }
@@ -41,13 +41,13 @@ namespace WindowsFormsApp4
 
         private void Add_Student(object sender, EventArgs e)
         {
-            Form3 newForm = new Form3();
+            StudentsForm newForm = new StudentsForm();
             newForm.Show();
         }
 
         private void Search_Student(object sender, EventArgs e)
         {
-            Student = new Form3();
+            createdStudent = new StudentsForm();
             string[] inputName = textBox1.Text.Split(' ');
             if (!File.Exists(filePath))
             {
@@ -62,19 +62,19 @@ namespace WindowsFormsApp4
             {
                 if (Array.Exists(inputName,element=>element==xBook.GetAttribute("Surname")))
                 {
-                    Student.textBox1.Text = xBook.Attributes["Name"].Value;
-                    Student.textBox2.Text = xBook.Attributes["Surname"].Value;
-                    Student.textBox3.Text = xBook.Attributes["Class"].Value;
-                    Student.pictureBox1.Image=SetPicture(xBook.Attributes["Image"].Value);
+                    createdStudent.textBox1.Text = xBook.Attributes["Name"].Value;
+                    createdStudent.textBox2.Text = xBook.Attributes["Surname"].Value;
+                    createdStudent.textBox3.Text = xBook.Attributes["Class"].Value;
+                    createdStudent.pictureBox1.Image=SetPicture(xBook.Attributes["Image"].Value);
                     break;
                 }
             }
-            Student.label6.Visible = true;
-            Student.textBox6.Visible = true;
-            Student.button2.Visible = true;
-            Student.button4.Visible = true;
-            Student.button5.Visible = true;
-            Student.Show();
+            createdStudent.label6.Visible = true;
+            createdStudent.textBox6.Visible = true;
+            createdStudent.button2.Visible = true;
+            createdStudent.button4.Visible = true;
+            createdStudent.button5.Visible = true;
+            createdStudent.Show();
         }
         private Image SetPicture(string stringImage)
         {

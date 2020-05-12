@@ -18,7 +18,7 @@ namespace WindowsFormsApp4
         private XmlElement xRoot;
         private XmlElement xBook;
         private XmlElement tmpNode;
-        private Dictionary<string, string> Params;
+        private Book newBook;
         private string FilePath = "books.xml";
         private int limit = 0;
         public Form2()
@@ -49,7 +49,7 @@ namespace WindowsFormsApp4
                 xRoot = xDoc.DocumentElement;
                 foreach (XmlNode Node in xRoot)
                 {
-                    if (Node.Attributes.GetNamedItem("name").Value == textBox1.Text)
+                    if (Node.Attributes["name"].Value == textBox1.Text)
                     {
                         MessageBox.Show("Така книга вже існує");
                         Close();
@@ -63,20 +63,10 @@ namespace WindowsFormsApp4
         }
         private void SaveToDict()
         {
-            Params = new Dictionary<string, string>();
-            Params.Add("Title", textBox1.Text);
-            Params.Add("Author", textBox2.Text);
-            Params.Add("Straight", comboBox1.Text);
-            Params.Add("Genre", comboBox2.Text);
-            int number = 0;
-            try
-            {
-                number = int.Parse(textBox3.Text);
-            }
-            catch
-            {
-            }
-            Params.Add("Quantity", number.ToString());
+            newBook = new Book(textBox1.Text);
+            newBook.Set_Author(textBox2.Text);
+            newBook.Set_Genre(comboBox2.Text);
+            newBook.Set_Straight(comboBox1.Text);
         }
         private void CheckFile()
         {
@@ -103,7 +93,7 @@ namespace WindowsFormsApp4
         }
         private void AddNode()
         {
-            foreach (KeyValuePair<string, string> keyValue in Params)
+            foreach (KeyValuePair<string, string> keyValue in newBook)
             {
                 tmpNode = xDoc.CreateElement(keyValue.Key);
                 tmpNode.InnerText = keyValue.Value;
